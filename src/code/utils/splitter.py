@@ -1,7 +1,7 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def splitter(text:str):
-    text_splitter = RecursiveCharacterTextSplitter.from_language(language="python", chunk_size=100, chunk_overlap=10)
+def splitter(text:str, language:str):
+    text_splitter = RecursiveCharacterTextSplitter.from_language(language=language, chunk_size=100, chunk_overlap=10)
     return text_splitter.split_text(text)
 
 if __name__ == "__main__":
@@ -15,4 +15,4 @@ if __name__ == "__main__":
         def multiply(a, b):
             return a * b
     """
-    print(splitter(text))
+    print(splitter(text, "python"))
