@@ -1,4 +1,4 @@
-from constants import get_language_by_extension
+from constants import get_language_by_extension, filter_directories, contains_ignored_path
 from utils import splitter
 import os
 
@@ -13,8 +13,8 @@ def chunker(path:str, chunk_size:int=100, chunk_overlap:int=10):
 
 def chunk_directory(path:str, chunk_size:int=100, chunk_overlap:int=10):
     for root, dirs, files in os.walk(path):
-        dirs[:] = [d for d in dirs if d not in ['.venv', '__pycache__', '.git', 'node_modules']]
-        if any(skip_dir in root for skip_dir in ['.venv', '__pycache__', '.git', 'node_modules']):
+        dirs[:] = filter_directories(dirs)
+        if contains_ignored_path(root):
             continue
         for file in files:
             chunker(os.path.join(root, file), chunk_size, chunk_overlap)
